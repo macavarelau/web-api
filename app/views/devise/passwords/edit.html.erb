@@ -1,0 +1,52 @@
+<div class="w-full max-w-md mx-auto">
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="px-8 py-6">
+      <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Cambiar contraseña</h2>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <div class="space-y-2">
+          <%= f.label :password, "Nueva contraseña", class: "block text-sm font-medium text-gray-700" %>
+          <% if @minimum_password_length %>
+            <span class="text-xs text-gray-500">(<%= @minimum_password_length %> caracteres mínimo)</span>
+          <% end %>
+          <div class="relative" data-controller="password-visibility">
+            <%= f.password_field :password, autofocus: true, autocomplete: "new-password",
+                class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800",
+                data: { password_visibility_target: "input" } %>
+            <button type="button" 
+                    class="absolute inset-y-0 right-0 mt-1 pr-3 flex items-center text-gray-600 hover:text-gray-800"
+                    data-action="click->password-visibility#toggle">
+              <i class="fa-regular fa-eye" data-password-visibility-target="icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <%= f.label :password_confirmation, "Confirmar nueva contraseña", class: "block text-sm font-medium text-gray-700" %>
+          <div class="relative" data-controller="password-visibility">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800",
+                data: { password_visibility_target: "input" } %>
+            <button type="button" 
+                    class="absolute inset-y-0 right-0 mt-1 pr-3 flex items-center text-gray-600 hover:text-gray-800"
+                    data-action="click->password-visibility#toggle">
+              <i class="fa-regular fa-eye" data-password-visibility-target="icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <%= f.submit "Cambiar mi contraseña",
+              class: "w-full py-2 px-4 border border-gray-800 text-gray-800 text-center font-medium rounded-md hover:bg-gray-800 hover:text-white transition-colors duration-200" %>
+        </div>
+      <% end %>
+
+      <div class="mt-6 border-t border-gray-200 pt-6">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
